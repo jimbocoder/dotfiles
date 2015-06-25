@@ -1,0 +1,24 @@
+#!/usr/bin/env php
+<?php
+
+$safeHome = preg_quote(getenv('HOME'), '/');
+$path = preg_replace("/^$safeHome(.*)$/", '~$1', getcwd());
+
+$delim = "\xe2\x8b\xaf"; // ⋯
+$maxlen=5;
+
+$abbreviator = function($component) use ($delim, $maxlen) {
+  if ( strlen($component) > $maxlen ) {
+    return substr($component,0,$maxlen) . $delim;
+  } else {
+    return $component;
+  }
+};
+
+
+$pathComponents = explode('/', $path);
+$lastComponent = array_pop($pathComponents); // I don't want to abbreviate the last path component, even when it's long.
+print implode ('/', array_merge(array_map( $abbreviator, $pathComponents), (array)$lastComponent));
+
+
+// \[\]\u@\h\[\]$(__git_ps1)\[\]:$(shortpath)\[\]\$
