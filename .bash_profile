@@ -1,9 +1,23 @@
-HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-pushd $HERE >/dev/null
+if [[ -h "${BASH_SOURCE[0]}" ]];
+then
+    __FILE__="$HOME/$(readlink "${BASH_SOURCE[0]}")"
+else
+    __FILE__="$HOME/${BASH_SOURCE[0]}"
+fi
 
-# Big history.  500 line default is way too small!
-export HISTSIZE=10000
-export HISTFILESIZE=10000
+__DIR__=$(dirname $__FILE__)
+
+pushd $__DIR__ >/dev/null
+
+source $(brew --prefix)/etc/bash_completion
+
+for module in .bash.d/*.sh .bash.d/*.bash
+do
+    source "$module"
+done
+
+
+#source .bash.d/history.sh
 
 # Too much coffee this day, for real:
 source .bash.d/ssh-completion.sh
