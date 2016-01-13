@@ -16,11 +16,11 @@ do
     source "$module"
 done
 
-
-#source .bash.d/history.sh
-
-# Too much coffee this day, for real:
-source .bash.d/ssh-completion.sh
-
+# love me some fzf ( https://github.com/junegunn/fzf )
+#source .bash.d/.fzf.bash
 
 popd >/dev/null
+
+
+export GREP_COLOR='1;35;40'
+export GREP_OPTIONS='--color=auto'
