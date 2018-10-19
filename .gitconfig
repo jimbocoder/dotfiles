@@ -15,8 +15,12 @@
         ci = commit
         br = branch
         co = checkout
+[branch "master"]
+	rebase = false
+[branch "develop"]
+	rebase = false
 [branch]
-        autosetuprebase = always
+        autosetuprebase = local
 [color]
         ui = auto
 [color "branch"]
